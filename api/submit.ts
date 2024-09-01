@@ -1,7 +1,11 @@
 export const POST = async (request: Request) => {
   try {
-    const data = await request.json();
+    const form = await request.formData();
 
+    const data: any = {};
+    form.forEach((value, key) => {
+      data[key] = value;
+    });
     // Destructure the required fields from the request body
     const {
       address,
@@ -37,14 +41,14 @@ export const POST = async (request: Request) => {
       people,
     });
 
-    // Fetch the contents of thanks.html from the same origin
-    const thanksHtmlResponse = await fetch(new URL("thanks.html", request.url));
-    const thanksHtmlContent = await thanksHtmlResponse.text();
-
     // Return the response with the contents of thanks.html
-    return new Response(thanksHtmlContent, {
-      status: 200,
-      headers: { "Content-Type": "text/html" },
+    return new Response("Redirecting", {
+      status: 307,
+      headers: {
+        Location:
+          new URL(request.url).origin +
+          `/thanks.html?budget=${budget}&people=${people}`,
+      },
     });
   } catch (error) {
     // Handle any errors
