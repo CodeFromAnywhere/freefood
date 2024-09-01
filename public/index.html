@@ -25,6 +25,15 @@
             padding: 2rem;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
+
+        .person-icon {
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .person-icon.active {
+            color: #4CAF50;
+        }
     </style>
 </head>
 
@@ -39,21 +48,129 @@
 
         <a class="py-4" href="chat">Try the beta</a>
 
-        <!-- <div class="glassmorphism text-black">
-            <h3 class="text-2xl font-semibold">Our Vision</h3>
-            <p class="mt-4">We aim to provide individuals with the tools and knowledge to cultivate their own food,
-                offering support by connecting them to local resources and communities. Together, we can shift the focus
-                from commercial dependency to self-sustainability.</p>
-        </div> -->
-
         <div class="glassmorphism text-black">
             <h3 class="text-2xl font-semibold">Fixed-Budget Local Food-Delivery</h3>
             <p class="mt-4">We are working with local farmers and ecological markets to offer a complete solution of
                 healthy foods, delivered at your door, at a fixed budget. Because of our AI-driven approach, we can keep
                 our margin super low.</p>
-        </div>
 
+            <div class="mt-6">
+                <h4 class="text-lg font-semibold">Your Household Food Budget</h4>
+                <input type="range" id="budgetSlider" min="100" max="1000" value="500" class="w-full mt-2">
+                <p id="budgetValue" class="mt-2">€500</p>
+            </div>
+
+            <div class="mt-6">
+                <h4 class="text-lg font-semibold">Household Size</h4>
+                <div id="peopleSelector" class="flex justify-center space-x-2 mt-2">
+                    <i class="fas fa-user person-icon text-gray-400" data-index="1"></i>
+                    <i class="fas fa-user person-icon text-gray-400" data-index="2"></i>
+                    <i class="fas fa-user person-icon text-gray-400" data-index="3"></i>
+                    <i class="fas fa-user person-icon text-gray-400" data-index="4"></i>
+                    <i class="fas fa-user person-icon text-gray-400" data-index="5"></i>
+                    <i class="fas fa-user person-icon text-gray-400" data-index="6"></i>
+                </div>
+                <p id="peopleCount" class="mt-2">0 people</p>
+            </div>
+
+            <button id="submitBtn"
+                class="mt-6 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300">Request
+                Offering</button>
+        </div>
     </div>
+
+    <div id="loadingIndicator"
+        class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="text-white text-2xl">
+            <i class="fas fa-spinner fa-spin mr-2"></i>Loading...
+        </div>
+    </div>
+
+    <script>
+        const budgetSlider = document.getElementById('budgetSlider');
+        const budgetValue = document.getElementById('budgetValue');
+        const peopleSelector = document.getElementById('peopleSelector');
+        const peopleCount = document.getElementById('peopleCount');
+        const submitBtn = document.getElementById('submitBtn');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+
+        let selectedPeople = 0;
+
+        budgetSlider.addEventListener('input', function () {
+            budgetValue.textContent = `€${this.value}`;
+        });
+
+        peopleSelector.addEventListener('mouseover', function (e) {
+            if (e.target.classList.contains('person-icon')) {
+                const index = parseInt(e.target.dataset.index);
+                highlightIcons(index);
+            }
+        });
+
+        peopleSelector.addEventListener('mouseout', function () {
+            highlightIcons(selectedPeople);
+        });
+
+        peopleSelector.addEventListener('click', function (e) {
+            if (e.target.classList.contains('person-icon')) {
+                selectedPeople = parseInt(e.target.dataset.index);
+                highlightIcons(selectedPeople);
+                updatePeopleCount();
+            }
+        });
+
+        function highlightIcons(index) {
+            const icons = peopleSelector.querySelectorAll('.person-icon');
+            icons.forEach((icon, i) => {
+                if (i < index) {
+                    icon.classList.add('active');
+                    icon.classList.remove('text-gray-400');
+                } else {
+                    icon.classList.remove('active');
+                    icon.classList.add('text-gray-400');
+                }
+            });
+        }
+
+        function updatePeopleCount() {
+            peopleCount.textContent = `${selectedPeople} ${selectedPeople === 1 ? 'person' : 'people'}`;
+        }
+
+        submitBtn.addEventListener('click', function () {
+            const budget = budgetSlider.value;
+            const people = selectedPeople;
+
+            loadingIndicator.classList.remove('hidden');
+
+            // Simulate API call
+            setTimeout(() => {
+                window.location.href = `/submit.html?budget=${budget}&people=${people}`;
+            }, 1500);
+        });
+
+        // Load saved values from localStorage
+        window.addEventListener('load', function () {
+            const savedBudget = localStorage.getItem('budget');
+            const savedPeople = localStorage.getItem('people');
+
+            if (savedBudget) {
+                budgetSlider.value = savedBudget;
+                budgetValue.textContent = `€${savedBudget}`;
+            }
+
+            if (savedPeople) {
+                selectedPeople = parseInt(savedPeople);
+                highlightIcons(selectedPeople);
+                updatePeopleCount();
+            }
+        });
+
+        // Save values to localStorage
+        window.addEventListener('beforeunload', function () {
+            localStorage.setItem('budget', budgetSlider.value);
+            localStorage.setItem('people', selectedPeople);
+        });
+    </script>
 </body>
 
 </html>
