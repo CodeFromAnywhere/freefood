@@ -1,3 +1,10 @@
+// Mock database insert function
+const mockDbInsert = async (data: any) => {
+  // Simulating database insert
+  console.log("Inserting data into database:", data);
+  return { success: true };
+};
+
 export const POST = async (request: Request) => {
   try {
     const form = await request.formData();
@@ -19,13 +26,6 @@ export const POST = async (request: Request) => {
       budget,
       people,
     } = data;
-
-    // Mock database insert function
-    const mockDbInsert = async (data: any) => {
-      // Simulating database insert
-      console.log("Inserting data into database:", data);
-      return { success: true };
-    };
 
     // Insert data into mock database
     await mockDbInsert({
