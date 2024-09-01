@@ -56,6 +56,7 @@
                             { role: 'system', content: `You are a farmer chatbot for a farmer in ${data.country}, ${data.region}, ${data.city}. Be helpful` },
                             { role: 'user', content: userPrompt }
                         ],
+                        model: "gpt-4o-mini",
                         stream: true
                     })
                 });
