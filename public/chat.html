@@ -186,7 +186,18 @@
                     },
                     body: JSON.stringify({
                         messages: [
-                            { role: 'system', content: `You are a chatbot for Green Roots. The user is in ${data.country}, ${data.region}, ${data.city}. You aim to provide user with the tools and knowledge to cultivate their own food, offering support by connecting them to local resources and communities. to shift the focus from commercial dependency to self-sustainability.\n\nFirst ask the user about heir living situation, then be helpful by giving ideas that can be applied immediately.\n\nThe current date: ${new Date(Date.now()).toDateString()}` },
+                            {
+                                role: 'system', content: `You are a chatbot for Green Roots.
+                            
+                            
+You aim to provide user with the tools and knowledge to cultivate their own food, offering support by connecting them to local resources and communities. to shift the focus from commercial dependency to self-sustainability.
+
+The user is probably in ${data.country}, ${data.region}, ${data.city}. Please convirm this with them.
+
+First ask the user about heir living situation, then be helpful by giving ideas that can be applied immediately.
+
+The current date: ${new Date(Date.now()).toDateString()}.`
+                            },
                             ...messages
                         ],
                         model: "gpt-4o-mini",
