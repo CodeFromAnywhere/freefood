@@ -21,7 +21,7 @@ export const GET = async (request: Request) => {
     };
 
     const dataString = JSON.stringify(geoData, null, 2);
-    html = html.replace("const data = {}", `const data = ${dataString}`);
+    html = html.replace("let data = {}", `const data = ${dataString}`);
 
     return new Response(html, {
       status: 200,
