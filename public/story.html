@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Story - Our Food</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f8ff;
+            background-size: cover;
+        }
+
+        h1 {
+            font-size: 60px;
+            font-family: 'Garamond', serif;
+        }
+
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body class="flex flex-col items-center justify-center min-h-screen text-center p-4">
+    <h1 class="text-green-600 mb-8">Our Story</h1>
+
+    <div class="max-w-3xl mx-auto">
+        <img src="us.jpg" alt="Our Team" class="w-full h-auto mb-8 rounded-lg shadow-lg">
+
+        <div class="glassmorphism text-black mb-8">
+            <h2 class="text-2xl font-semibold mb-4">The Genesis of Our Idea</h2>
+            <p class="mb-4">
+                Our journey began with a simple question: "What's too easy in the world that should be harder?" The
+                answer was right in front of us: supermarkets. They're convenient, yes, but at what cost to our health?
+            </p>
+            <p>
+                We realized that the ease of shopping at supermarkets often leads us to make unhealthy choices. It's
+                human nature to opt for convenience, even when it's not in our best interest. This realization sparked
+                our mission: to make accessing local, healthy food as easy as shopping at a supermarket.
+            </p>
+        </div>
+
+        <div class="glassmorphism text-black mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Our Vision</h2>
+            <p class="mb-4">
+                We envisioned a platform that connects people directly with local farmers and food suppliers. Our goal
+                is to eliminate the need for individuals to independently seek out multiple local sources, which can be
+                time-consuming and challenging.
+            </p>
+            <p>
+                By bringing diverse resources together in one place, we aim to make it incredibly easy for people to
+                transition to a healthier lifestyle. We believe that with the right infrastructure, choosing local,
+                healthy food can become just as convenient as shopping at a supermarket.
+            </p>
+        </div>
+
+        <div class="glassmorphism text-black mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Our Unique Approach</h2>
+            <p class="mb-4">
+                What sets us apart is our commitment to transparency and fair practices. We operate on a flat fee model
+                - just €1 per user per month. The rest of your fixed budget goes directly to the farmers. We don't
+                handle this money; our role is to facilitate the connection and ensure smooth delivery from farm to your
+                doorstep.
+            </p>
+            <p>
+                Our platform provides you with all the information you need to make informed purchases, whether it's
+                monthly or weekly. We're not driven by profit, but by a genuine desire to improve community health and
+                support local agriculture.
+            </p>
+        </div>
+
+        <div class="glassmorphism text-black">
+            <h2 class="text-2xl font-semibold mb-4">Support Our Mission</h2>
+            <p class="mb-4">
+                While we don't have a traditional business model, we rely on the support of those who believe in our
+                mission. If you'd like to contribute to our cause and help us grow this initiative, please consider
+                making a donation.
+            </p>
+            <button class="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300">
+                <i class="fas fa-heart mr-2"></i>Donate
+            </button>
+        </div>
+    </div>
+
+    <a href="index.html" class="mt-8 text-green-600 hover:text-green-700 transition duration-300">
+        <i class="fas fa-arrow-left mr-2"></i>Back to Home
+    </a>
+
+    <script>
+        // Load settings from localStorage
+        document.addEventListener('DOMContentLoaded', function () {
+            const savedSettings = localStorage.getItem('siteSettings');
+            if (savedSettings) {
+                const settings = JSON.parse(savedSettings);
+                // Apply settings here (e.g., theme, font size, etc.)
+            }
+        });
+
+        // Share button functionality
+        const shareButton = document.createElement('button');
+        shareButton.innerHTML = '<i class="fas fa-share-alt mr-2"></i>Share Our Story';
+        shareButton.className = 'mt-4 px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300';
+        shareButton.onclick = function () {
+            const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent('Check out this amazing initiative for healthier, local food options!')}`;
+            window.open(twitterUrl, '_blank');
+        };
+        document.body.appendChild(shareButton);
+    </script>
+</body>
+
+</html>
