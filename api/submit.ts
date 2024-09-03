@@ -2,6 +2,9 @@
 const mockDbInsert = async (data: any) => {
   // Simulating database insert
   console.log("Inserting data into database:", data);
+
+  // TODO: Get this data into a db and send an email
+
   return { success: true };
 };
 
